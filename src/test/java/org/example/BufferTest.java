@@ -5,6 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
+import static org.junit.Assert.assertEquals;
+
 public class BufferTest {
 
     private MockHelperBuffer buffer;
@@ -12,19 +14,6 @@ public class BufferTest {
     @Before
     public void setUp() {
         buffer = new MockHelperBuffer();
-    }
-
-    @Test
-    @DisplayName("Test")
-    public void testAddAndRemove() {
-        MockHelperItem item1 = new MockHelperItem("Item1");
-        MockHelperItem item2 = new MockHelperItem("Item2");
-
-        buffer.add(item1);
-        buffer.add(item2);
-
-        Assert.assertEquals(item1, buffer.remove());
-        Assert.assertEquals(item2, buffer.remove());
     }
 
     @Test
@@ -37,14 +26,22 @@ public class BufferTest {
     }
 
     @Test
-    @DisplayName("Tests that the buffer is not empty when item is added")
+    @DisplayName("Tests that the buffer variable is not empty when item is added")
     public void testBufferIsNotEmpty() {
         buffer.add(new MockHelperItem("Item1"));
         Assert.assertFalse(buffer.buffer.isEmpty());
     }
 
     @Test
-    @DisplayName("Testa att remove()-metoden kastar InterruptedException när den avbryts")
+    @DisplayName("Tests that removing an item should return the same item that was added")
+    public void testRemoveItem() {
+        MockHelperItem item = new MockHelperItem("test");
+        buffer.add(item);
+        assertEquals(item, buffer.remove());
+    }
+
+    @Test
+    @DisplayName("Tests that remove()-metod throws InterruptedException when interrupted")
     public void testRemoveWithInterrupt() throws InterruptedException {
         // Skapar en ny tråd som kommer att köra remove()-metoden.
         Thread testThread = new Thread(() -> {

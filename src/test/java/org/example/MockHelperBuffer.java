@@ -14,4 +14,8 @@ public class MockHelperBuffer extends Buffer {
         }
         return super.remove();
     }
+
+    public synchronized int size() {
+        return buffer.size();
+    }
 }

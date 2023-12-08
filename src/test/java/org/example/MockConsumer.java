@@ -2,28 +2,26 @@ package org.example;
 
 public class MockConsumer implements Consumer {
 
-    private Buffer buffer;
-    private boolean isRunning;
+    private MockHelperBuffer buffer;
+    private volatile boolean running = true;
 
-    public MockConsumer(Buffer buffer) {
+    public MockConsumer(MockHelperBuffer buffer) {
         this.buffer = buffer;
     }
 
     @Override
     public void run() {
-        isRunning = true;
-        while (isRunning) {
-            // Simulera konsumtion av ett objekt
-            if (!buffer.buffer.isEmpty()) {
-                Item item = buffer.remove();
-                // Hantera 'item' om nödvändigt
-            }
-            // Lägg till logik för att pausa eller avsluta loopen om nödvändigt
-        }
+        running = true;
+        buffer.remove();
+
     }
 
     @Override
     public void stopRunning() {
-        isRunning = false;
+        running = false;
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 }

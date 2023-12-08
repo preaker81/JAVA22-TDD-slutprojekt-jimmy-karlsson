@@ -1,29 +1,28 @@
 package org.example;
 
-import org.mockito.Mockito;
 
 public class MockProducer implements Producer {
 
-    private Buffer buffer;
-    private boolean isRunning;
+    private MockHelperBuffer buffer;
+    private volatile boolean running = true;
 
-    public MockProducer(Buffer buffer) {
+    public MockProducer(MockHelperBuffer buffer) {
         this.buffer = buffer;
     }
 
     @Override
     public void run() {
-        isRunning = true;
-        while (isRunning) {
-            // Simulera produktion av ett objekt
-            Item item = Mockito.mock(Item.class);
-            buffer.add(item);
-            // Lägg till logik för att pausa eller avsluta loopen om nödvändigt
-        }
+        MockHelperItem item = new MockHelperItem("item");
+        buffer.add(item);
     }
 
     @Override
     public void stopRunning() {
-        isRunning = false;
+        running = false;
     }
+
+    public boolean isRunning() {
+        return running;
+    }
+
 }
