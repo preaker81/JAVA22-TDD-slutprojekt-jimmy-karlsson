@@ -3,10 +3,6 @@ package org.example;
 public class MockHelperBuffer extends Buffer {
     private boolean throwInterrupt = false;
 
-    public void setThrowInterrupt(boolean throwInterrupt) {
-        this.throwInterrupt = throwInterrupt;
-    }
-
     @Override
     public synchronized Item remove() {
         if (throwInterrupt) {

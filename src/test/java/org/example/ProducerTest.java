@@ -37,4 +37,5 @@ public class ProducerTest {
         Item item = buffer.remove();
         assertNotNull(item, "Buffer should have an item after run");
     }
+
 }

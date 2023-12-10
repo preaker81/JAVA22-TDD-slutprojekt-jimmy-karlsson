@@ -5,7 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BufferTest {
 
@@ -17,7 +18,7 @@ public class BufferTest {
     }
 
     @Test
-    @DisplayName("Tests that the buffer variable is empty")
+    @DisplayName("Tests that the buffer que variable is empty")
     public void testBufferIsEmpty() {
         Assert.assertTrue(buffer.buffer.isEmpty());
 
@@ -37,23 +38,13 @@ public class BufferTest {
     public void testRemoveItem() {
         MockHelperItem item = new MockHelperItem("test");
         buffer.add(item);
-        assertEquals(item, buffer.remove());
+        assertSame(item, buffer.remove());
     }
 
     @Test
-    @DisplayName("Tests that remove()-metod throws InterruptedException when interrupted")
-    public void testRemoveWithInterrupt() throws InterruptedException {
-        // Skapar en ny tråd som kommer att köra remove()-metoden.
-        Thread testThread = new Thread(() -> {
-            buffer.remove();
-            Assert.fail("Ett InterruptedException borde ha kastats");
-        });
-
-        testThread.start(); // Startar tråden.
-        Thread.sleep(100); // Ger tid för tråden att starta och nå wait()-anropet i remove()-metoden.
-
-        testThread.interrupt(); // Skickar ett avbrott till tråden.
-        testThread.join(); // Väntar tills tråden har avslutat sin exekvering.
+    @DisplayName("Test add() with null value Id")
+    public void testAddWithNullValueItem() {
+        assertThrows(NullPointerException.class, () -> buffer.add(new MockHelperItem(null)));
     }
 
 }

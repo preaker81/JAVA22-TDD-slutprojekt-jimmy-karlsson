@@ -2,12 +2,8 @@ package org.example;
 
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.mockito.Mock;
-
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ItemTest {
 
@@ -27,7 +23,7 @@ public class ItemTest {
         String exptectedValue = "after";
         MockHelperItem item = new MockHelperItem(initValue);
         item.setId(changedValue);
-        assertTrue(Objects.equals(item.getId(), exptectedValue));
+        assertEquals(item.getId(), exptectedValue);
     }
 
     @Test

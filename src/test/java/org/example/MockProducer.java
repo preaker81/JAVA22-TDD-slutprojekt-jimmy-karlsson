@@ -3,7 +3,7 @@ package org.example;
 
 public class MockProducer implements Producer {
 
-    private MockHelperBuffer buffer;
+    private final MockHelperBuffer buffer;
     private volatile boolean running = true;
 
     public MockProducer(MockHelperBuffer buffer) {

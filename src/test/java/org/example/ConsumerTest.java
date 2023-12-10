@@ -30,14 +30,14 @@ public class ConsumerTest {
     }
 
     @Test
-    @DisplayName("Tests that Consumer run method remove an item from the buffer")
+    @DisplayName("Tests that Consumer run method removes an item from the buffer")
     public void testRunRemovesItemFromBuffer() {
         MockHelperItem addItem = new MockHelperItem("item");
         buffer.add(addItem);
 
-        int sizeBefore = buffer.size();
+        int sizeBefore = consumer.getBufferSize();
         consumer.run();
-        int sizeAfter = buffer.size();
+        int sizeAfter = consumer.getBufferSize();
 
         assertTrue(sizeBefore > sizeAfter, "Buffer size should decrease after consumer runs");
     }
@@ -49,13 +49,11 @@ public class ConsumerTest {
             buffer.remove();
         });
         removeThread.start();
-        // Ge lite tid för tråden att starta och nå wait()-anropet
+        // Ger lite tid för tråden att starta och nå wait()-anropet
         Thread.sleep(100);
         // Kontrollera att tråden fortfarande är igång, vilket indikerar att den väntar
         assertTrue(removeThread.isAlive(), "Thread should be waiting as buffer is empty");
-        // Stoppa tråden för att undvika att den fortsätter att köra efter testet
+        // Stoppar tråden för att undvika att den fortsätter att köra efter testet
         removeThread.interrupt();
     }
-
-
 }

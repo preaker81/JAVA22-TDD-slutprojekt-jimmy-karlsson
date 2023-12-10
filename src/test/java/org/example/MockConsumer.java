@@ -1,8 +1,7 @@
 package org.example;
 
 public class MockConsumer implements Consumer {
-
-    private MockHelperBuffer buffer;
+    private final MockHelperBuffer buffer;
     private volatile boolean running = true;
 
     public MockConsumer(MockHelperBuffer buffer) {
@@ -13,7 +12,6 @@ public class MockConsumer implements Consumer {
     public void run() {
         running = true;
         buffer.remove();
-
     }
 
     @Override
@@ -23,5 +21,9 @@ public class MockConsumer implements Consumer {
 
     public boolean isRunning() {
         return running;
+    }
+
+    public int getBufferSize() {
+        return buffer.size();
     }
 }
