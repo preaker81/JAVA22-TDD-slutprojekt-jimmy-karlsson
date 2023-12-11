@@ -22,14 +22,14 @@ public class BufferTest {
     public void testBufferIsEmpty() {
         Assert.assertTrue(buffer.buffer.isEmpty());
 
-        buffer.add(new MockHelperItem("Item1"));
+        buffer.add(new MockHelperItem("test"));
         Assert.assertFalse(buffer.buffer.isEmpty());
     }
 
     @Test
     @DisplayName("Tests that the buffer variable is not empty when item is added")
     public void testBufferIsNotEmpty() {
-        buffer.add(new MockHelperItem("Item1"));
+        buffer.add(new MockHelperItem("test"));
         Assert.assertFalse(buffer.buffer.isEmpty());
     }
 

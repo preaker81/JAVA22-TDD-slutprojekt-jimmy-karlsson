@@ -19,8 +19,8 @@ public class ProducerTest {
     }
 
     @Test
-    @DisplayName("Tests that the Producer is running from start")
-    public void testIsRunningInitiallyTrue() {
+    @DisplayName("Tests that the Producer is running")
+    public void testProducerIsRunning() {
         assertTrue(producer.isRunning());
     }
 
