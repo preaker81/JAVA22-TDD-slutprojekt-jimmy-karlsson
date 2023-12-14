@@ -6,6 +6,6 @@ public class MockHelperItem extends Item {
     }
 
     public String getId() {
-        return super.id;
+        return id;
     }
 }

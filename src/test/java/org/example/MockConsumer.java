@@ -19,11 +19,7 @@ public class MockConsumer implements Consumer {
         running = false;
     }
 
-    public boolean isRunning() {
-        return running;
-    }
-
-    public int getBufferSize() {
-        return buffer.size();
+    public Item removeItem()  {
+        return buffer.remove();
     }
 }

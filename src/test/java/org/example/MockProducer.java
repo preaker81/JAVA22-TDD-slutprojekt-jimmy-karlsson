@@ -4,7 +4,7 @@ package org.example;
 public class MockProducer implements Producer {
 
     private final MockHelperBuffer buffer;
-    private volatile boolean running = true;
+
 
     public MockProducer(MockHelperBuffer buffer) {
         this.buffer = buffer;
@@ -12,17 +12,16 @@ public class MockProducer implements Producer {
 
     @Override
     public void run() {
-        MockHelperItem item = new MockHelperItem("item");
-        buffer.add(item);
     }
 
     @Override
     public void stopRunning() {
-        running = false;
     }
 
-    public boolean isRunning() {
-        return running;
+    public boolean addItem(MockHelperItem item) {
+        if (item == null) {
+            throw new NullPointerException("Item cannot be null");
+        }
+        return buffer.add(item);
     }
-
 }
