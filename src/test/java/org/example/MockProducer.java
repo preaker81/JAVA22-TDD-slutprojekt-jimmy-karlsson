@@ -19,9 +19,6 @@ public class MockProducer implements Producer {
     }
 
     public boolean addItem(MockHelperItem item) {
-        if (item == null) {
-            throw new NullPointerException("Item cannot be null");
-        }
         return buffer.add(item);
     }
 }

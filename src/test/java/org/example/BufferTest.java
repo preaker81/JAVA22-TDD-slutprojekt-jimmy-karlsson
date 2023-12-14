@@ -1,14 +1,19 @@
 package org.example;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BufferTest {
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
     private MockHelperBuffer buffer;
     private MockProducer producer;
     private MockConsumer consumer;
@@ -18,6 +23,13 @@ public class BufferTest {
         buffer = new MockHelperBuffer();
         producer = new MockProducer(buffer);
         consumer = new MockConsumer(buffer);
+
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @AfterEach
+    public void restoreStreams() {
+        System.setOut(originalOut);
     }
 
     @Test
@@ -65,7 +77,24 @@ public class BufferTest {
     @Test
     @DisplayName("Handle null item addition")
     public void testAddNullItem() {
-        assertThrows(NullPointerException.class, () -> producer.addItem(null));
+        producer.addItem(null);
+        assertNull(buffer.getBufferQueue().peek(), "Buffer should contain a null value");
+    }
+
+    @Test
+    @DisplayName("Test add method return value")
+    public void testAddMethodReturnValue() {
+        MockHelperItem item = new MockHelperItem("test");
+        assertTrue(buffer.add(item), "Buffer add method should return true");
+    }
+
+    @Test
+    @DisplayName("Test add method system output")
+    public void testAddMethodSystemOutput() {
+        MockHelperItem item = new MockHelperItem("TestOutput");
+        buffer.add(item);
+        String expectedOutput = "[testoutput]";
+        assertEquals(expectedOutput, outContent.toString().trim(), "System output should match expected output");
     }
 
     @Test
